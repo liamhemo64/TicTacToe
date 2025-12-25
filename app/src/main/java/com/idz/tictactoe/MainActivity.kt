@@ -87,11 +87,31 @@ class MainActivity : ComponentActivity() {
     }
 
     fun checkForAWin(row: Int, col: Int): Boolean {
+        if ((0..2).all { board[row][it] == current_player }) return true
+        if ((0..2).all { board[it][col] == current_player }) return true
+
+        if (row == col && (0..2).all { board[it][it] == current_player }) return true
+        if (row + col == 2 && (0..2).all { board[it][2 - it] == current_player }) return true
+
         return false
     }
 
     fun checkForADraw(): Boolean {
-        return false
+        for (i in 0..2) {
+            for (j in 0..2) {
+                val id = resources.getIdentifier(
+                    "button_${i}_${j}",
+                    "id",
+                    packageName
+                )
+                val currentButton: Button = findViewById<Button>(id)
+                if (currentButton.text.isNullOrEmpty()) {
+                    return false
+                }
+            }
+        }
+
+        return true
     }
 
     fun disableBoard(){
