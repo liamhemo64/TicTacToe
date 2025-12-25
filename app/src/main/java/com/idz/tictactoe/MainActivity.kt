@@ -115,14 +115,41 @@ class MainActivity : ComponentActivity() {
     }
 
     fun disableBoard(){
-
+        for (i in 0..2) {
+            for (j in 0..2) {
+                val id = resources.getIdentifier(
+                    "button_${i}_${j}",
+                    "id",
+                    packageName
+                )
+                val currentButton: Button = findViewById<Button>(id)
+                currentButton.isEnabled = false
+            }
+        }
     }
 
     fun cleanBoard() {
-
+        for (i in 0..2) {
+            for (j in 0..2) {
+                val id = resources.getIdentifier(
+                    "button_${i}_${j}",
+                    "id",
+                    packageName
+                )
+                val currentButton: Button = findViewById<Button>(id)
+                currentButton.isEnabled = true
+                currentButton.text = ""
+                board[i][j] = ' '
+            }
+        }
     }
 
     fun startANewGame() {
-
+        cleanBoard()
+        play_again_button?.isEnabled = false
+        current_player = 'X'
+        winner?.text = ""
+        playersTurn?.text = "It's ${current_player}'s turn"
+        setBoard()
     }
 }
